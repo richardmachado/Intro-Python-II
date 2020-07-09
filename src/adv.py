@@ -65,7 +65,7 @@ player = Player("", room['outside'])
 
 # interface functions
 def adventure_screen(header, body):
-    os.system('clear')
+    os.system('cls')
     print("##################################")
     text_display(f"     {header}")
     print("\n##################################")
@@ -135,11 +135,12 @@ def move_action():
 def quit_game():
     print("are you sure? (Y/N)\n")
     user_input = input("> ").lower().strip()
-    while len(user_input) > 1:
-        print("Please select Y or N")
-        user_input = input("> ")
+    # while len(user_input) >= 2:
+        # print("Please select Y or N")
+        # user_input = input("> ")
     if user_input == "y":
         print("See you next time...")
+        os.system('cls')
         sys.exit()
     elif user_input == "n":
         prompt()
@@ -160,12 +161,11 @@ def text_display(text_var):
 def main_game():
     welcome()
     prompt()
-        # most functionality within prompt function loc 81
-
+    
 
 # title screen & options
 def title_screen():
-    os.system('clear')
+    os.system('cls')
     print("##################################")
     print("#         Darkest Dungeon        #")
     print("##################################")
@@ -188,14 +188,14 @@ def title_screen_options():
     if option in ("p", "play"):
         main_game()
     if option in ("quit", "exit", "q"):
-        os.system('clear')
+        os.system('cls')
         sys.exit()
     else:
         title_screen_options()
 
 
 def welcome():
-    os.system('clear')
+    os.system('cls')
     header = "Darkest Dungeon"
     name_question = "Welcome hero, what is your name?"
     adventure_screen(header, name_question)
