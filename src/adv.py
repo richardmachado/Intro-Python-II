@@ -8,25 +8,36 @@ import random
 
 from room import Room
 from player import Player
+from item import Item
+
 # Declare all the rooms
+item = {
+    'backpack': Item("Backpack", "The bag to carry all your goodies"),
+    'shield': Item("Shield", "The protection"),
+    'arrows': Item("Arrows", "Pointy wooden flying weapons"),
+    'sword': Item("Sword", "Sharp metal swingy thing"),
+    'bow': Item('Bow', 'To shoot the arrows'),
+    'axe': Item("Axe", "Cut down some trees of people"),
+    'health': Item("Health Potion", "The big healer")
+}
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-"North of you, the cave mouth beckons"),
+"North of you, the cave mouth beckons", item['axe']),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", item['arrows']),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", item['sword']),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", item['backpack']),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", item['health']),
 }
 
 
@@ -58,10 +69,13 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
+#Items
+
 
 # navigation
 
 player = Player("", room['outside'])
+
 
 # interface functions
 def adventure_screen(header, body):
@@ -83,7 +97,7 @@ def prompt():
     adventure_screen(room_name, room_desc)
     while player.hp > 0 and player.game_over is False:
         choose_action()
-        
+
 
 ## player action functions
 
@@ -96,7 +110,7 @@ def choose_action():
     if user_input in ("move," "m"):
         move_action()
     elif user_input in ("search," "s"):
-        print("Search not set up yet")
+        search()
     elif user_input in ("q", "quit", "exit"):
         quit_game()
     elif user_input in ("help", "?", "h"):
@@ -130,10 +144,10 @@ def move_action():
             move_action()
     if user_input in ("actions", "a"):
         choose_action()
-    
+
 # General game functions
 def quit_game():
-    print("are you sure? (Y/N)\n")
+    text_display("are you sure? (Y/N)\n")
     user_input = input("> ").lower().strip()
     # while len(user_input) >= 2:
         # print("Please select Y or N")
@@ -147,9 +161,9 @@ def quit_game():
 
 
 def help_menu():
-    print("Type 'Play' to start the game or type 'Q' or'Quit' to Qui. use N, S, E, W to navigate")
+    print("Type 'Play' to start the game or type 'Q' or'Quit' to Quit. use N, S, E, W to navigate")
     print("In game use 'N', 'S', 'E', 'W' to navigate and 'Enter' to confirm an action")
-    
+
 # renders text characters when entering room
 def text_display(text_var):
     for character in text_var:
@@ -161,7 +175,7 @@ def text_display(text_var):
 def main_game():
     welcome()
     prompt()
-    
+
 
 # title screen & options
 def title_screen():
@@ -188,6 +202,7 @@ def title_screen_options():
     if option in ("p", "play"):
         main_game()
     if option in ("quit", "exit", "q"):
+        text_display("See you next time, brave warrior")
         os.system('cls')
         sys.exit()
     else:
@@ -197,10 +212,47 @@ def title_screen_options():
 def welcome():
     os.system('cls')
     header = "Darkest Dungeon"
-    name_question = "Welcome hero, what is your name?"
+    name_question = "Welcome my lord, what is your name?"
     adventure_screen(header, name_question)
     player_name = input("> ")
     player.name = player_name
+    text_display(f"Welcome brave hero " + player_name + "!!!!")
+    print("")
+
+
+# def search():
+#     if (player.current_room.items == None):
+#         print("The room is empty")
+#     else:
+#         print(f'You look down and find a {player.current_room.items.name}\n\n')
+
+#     direction = input(
+#         "\n\n Please choose directions from the options above, pick up the item on the ground: ").lower()
+#     direction = direction.strip().split(maxsplit=1)
+
+#     if (direction[0] == 'n'):
+#         player.current_room = player.current_room.n_to
+#     elif (direction[0] == 'e'):
+#         player.current_room = player.current_room.e_to
+#     elif (direction[0] == 's'):
+#         player.current_room = player.current_room.s_to
+#     elif (direction[0] == 'w'):
+#         player.current_room = player.current_room.w_to
+#     elif (direction[0] == 'take' or direction[0] == 'grab'):
+#         if(len(direction) == 2):
+#             if (player.current_room.items.name.lower() == direction[1]):
+#                 player.addItem(direction[1])
+#                 player.current_room.items = None
+#                 print(f"{direction[1]} picked up\n\n")
+#             else:
+#                 print(
+#                     f"{direction[1]} not found in {player.current_room.name}")
+#         else:
+#             print("Specify item to grab")
+#     else:
+#         print(f"input not recognized, please follow instructions")
+
+
 
 
 # Game start
