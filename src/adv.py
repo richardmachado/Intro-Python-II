@@ -7,8 +7,9 @@ import random
 
 
 from room import Room
-from player import Player
+from player import *
 from item import Item
+
 
 # Declare all the rooms
 item = {
@@ -116,7 +117,7 @@ def choose_action():
     elif user_input in ("help", "?", "h"):
         help_menu()
     elif user_input in ("inventory", "i"):
-        print("Inventory not set up yet")
+        inventory()
     else:
         print("not a valid instruction")
 
@@ -224,10 +225,8 @@ def search():
         print(f'You look down and find a {player.current_room.items.name}\n\n')
 
     direction = input(
-        "\n\n Please choose directions from the options above, pick up the item on the ground: ").lower()
+        "\n\n Please type [take]+[item] or [drop]+[item]:  ").lower()
     direction = direction.strip().split(maxsplit=1)
-
-
     if (direction[0] == 'take' or direction[0] == 'grab'):
         if(len(direction) == 2):
             if (player.current_room.items.name.lower() == direction[1]):
@@ -239,10 +238,23 @@ def search():
                     f"{direction[1]} not found in {player.current_room.name}")
         else:
             print("Specify item to grab")
+    elif (direction[0] == 'drop' or direction[0] == 'throw'):
+        if (len(direction) == 2):
+            if (direction[1] is in player.view_items(item):
+                    player.dropItem(direction[1])
+                    room.addItem(direction[1])
+                    # player.current_room.items = 1
+                    print(f"{direction[1]} dropped \n\n")
+            else:
+                print(f"{direction[1]} not found in your inventory")
+    # else:
+    #     print("Specify item to grab")
     else:
         print(f"input not recognized, please follow instructions")
 
-
+#inventory
+def inventory():
+    player.view_items()
 
 
 # Game start

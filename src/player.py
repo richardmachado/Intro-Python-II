@@ -14,17 +14,25 @@ class Player:
         new_direction = move + "_to"
         return getattr(location, new_direction)
 
+    def dropItem(self, item):
+        return self.item.remove(item)
+
     def addItem(self, item):
         return self.items.append(item)
+        self.view_items()
 
-    def __str__(self):
-        return f"{self.name} is in {self.current_room}"
+
+    def view_items(self):
+        print("Your items: ", [item for item in self.items],' \n')
+
+
 
 class Inventory(Player):
     def __init__(self, name, current_room, items=[]):
         super().__init__(name, current_room)
         self.items = items
 
-    def view_items(self):
-        for i in self.items:
-            print(i)
+
+
+    def __str__(self):
+        return f"{self.items} are in your backpack"
