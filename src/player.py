@@ -15,10 +15,10 @@ class Player:
         return getattr(location, new_direction)
 
     def dropItem(self, item):
-        return self.item.remove(item)
+        self.items.remove(item)
 
     def addItem(self, item):
-        return self.items.append(item)
+        self.items.append(item)
         self.view_items()
 
 

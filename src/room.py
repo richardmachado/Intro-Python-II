@@ -2,10 +2,10 @@
 # description attributes.
 
 class Room:
-    def __init__(self, name, description, items):
+    def __init__(self, name, description, item=None):
         self.name = name
         self.description = description
-        self.items = items
+        self.item = item
         self.visited = False
         self.n_to = None
         self.s_to = None
@@ -13,7 +13,7 @@ class Room:
         self.w_to = None
 
     def addItem(self, item):
-        return self.items.append(item)
+        self.item=item
 
     def __str__(self):
         return f"{self.name}. {self.description}"

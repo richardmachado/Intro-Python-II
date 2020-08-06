@@ -219,19 +219,19 @@ def welcome():
 
 
 def search():
-    if (player.current_room.items == None):
+    if (player.current_room.item == None):
         print("The room is empty")
     else:
-        print(f'You look down and find a {player.current_room.items.name}\n\n')
+        print(f'You look down and find a {player.current_room.item}\n\n')
 
     direction = input(
         "\n\n Please type [take]+[item] or [drop]+[item]:  ").lower()
     direction = direction.strip().split(maxsplit=1)
     if (direction[0] == 'take' or direction[0] == 'grab'):
         if(len(direction) == 2):
-            if (player.current_room.items.name.lower() == direction[1]):
+            if (player.current_room.item.name.lower() == direction[1]):
                 player.addItem(direction[1])
-                player.current_room.items = None
+                player.current_room.item = None
                 print(f"{direction[1]} picked up\n\n")
             else:
                 print(
@@ -240,9 +240,9 @@ def search():
             print("Specify item to grab")
     elif (direction[0] == 'drop' or direction[0] == 'throw'):
         if (len(direction) == 2):
-            if (direction[1] is in player.view_items(item):
+            if (direction[1] in player.items):
                     player.dropItem(direction[1])
-                    room.addItem(direction[1])
+                    player.current_room.item = direction[1]
                     # player.current_room.items = 1
                     print(f"{direction[1]} dropped \n\n")
             else:
