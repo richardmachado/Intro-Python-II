@@ -8,11 +8,15 @@ class Player:
         self.current_room = current_room
         self.direction = None
         self.game_over = False
+        self.items=[]
 
     def change_room(self, location, move):
         new_direction = move + "_to"
         return getattr(location, new_direction)
-        
+
+    def addItem(self, item):
+        return self.items.append(item)
+
     def __str__(self):
         return f"{self.name} is in {self.current_room}"
 

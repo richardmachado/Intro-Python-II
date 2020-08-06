@@ -220,37 +220,37 @@ def welcome():
     print("")
 
 
-# def search():
-#     if (player.current_room.items == None):
-#         print("The room is empty")
-#     else:
-#         print(f'You look down and find a {player.current_room.items.name}\n\n')
+def search():
+    if (player.current_room.items == None):
+        print("The room is empty")
+    else:
+        print(f'You look down and find a {player.current_room.items.name}\n\n')
 
-#     direction = input(
-#         "\n\n Please choose directions from the options above, pick up the item on the ground: ").lower()
-#     direction = direction.strip().split(maxsplit=1)
+    direction = input(
+        "\n\n Please choose directions from the options above, pick up the item on the ground: ").lower()
+    direction = direction.strip().split(maxsplit=1)
 
-#     if (direction[0] == 'n'):
-#         player.current_room = player.current_room.n_to
-#     elif (direction[0] == 'e'):
-#         player.current_room = player.current_room.e_to
-#     elif (direction[0] == 's'):
-#         player.current_room = player.current_room.s_to
-#     elif (direction[0] == 'w'):
-#         player.current_room = player.current_room.w_to
-#     elif (direction[0] == 'take' or direction[0] == 'grab'):
-#         if(len(direction) == 2):
-#             if (player.current_room.items.name.lower() == direction[1]):
-#                 player.addItem(direction[1])
-#                 player.current_room.items = None
-#                 print(f"{direction[1]} picked up\n\n")
-#             else:
-#                 print(
-#                     f"{direction[1]} not found in {player.current_room.name}")
-#         else:
-#             print("Specify item to grab")
-#     else:
-#         print(f"input not recognized, please follow instructions")
+    if (direction[0] == 'n'):
+        player.current_room = player.current_room.n_to
+    elif (direction[0] == 'e'):
+        player.current_room = player.current_room.e_to
+    elif (direction[0] == 's'):
+        player.current_room = player.current_room.s_to
+    elif (direction[0] == 'w'):
+        player.current_room = player.current_room.w_to
+    elif (direction[0] == 'take' or direction[0] == 'grab'):
+        if(len(direction) == 2):
+            if (player.current_room.items.name.lower() == direction[1]):
+                player.addItem(direction[1])
+                player.current_room.items = None
+                print(f"{direction[1]} picked up\n\n")
+            else:
+                print(
+                    f"{direction[1]} not found in {player.current_room.name}")
+        else:
+            print("Specify item to grab")
+    else:
+        print(f"input not recognized, please follow instructions")
 
 
 
